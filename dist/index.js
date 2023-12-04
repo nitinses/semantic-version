@@ -1170,6 +1170,10 @@ class DefaultVersionClassifier {
         }
     }
     resolveCommitType(commitsSet) {
+        const event_name = process.env.GITHUB_EVENT_NAME;
+        if (event_name === 'schedule') {
+            return { type: VersionType_1.VersionType.Patch, increment: 1, changed: true };
+        }
         if (commitsSet.commits.length === 0) {
             return { type: VersionType_1.VersionType.None, increment: 0, changed: commitsSet.changed };
         }
