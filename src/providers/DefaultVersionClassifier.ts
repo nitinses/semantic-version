@@ -66,6 +66,13 @@ export class DefaultVersionClassifier implements VersionClassifier {
     }
 
     private resolveCommitType(commitsSet: CommitInfoSet): ({ type: VersionType, increment: number, changed: boolean }) {
+        
+        const event_name = process.env.GITHUB_EVENT_NAME;
+
+        if(event_name === 'schedule' ) {
+            return { type: VersionType.Patch, increment: 1, changed: true };
+        }
+        
         if (commitsSet.commits.length === 0) {
             return { type: VersionType.None, increment: 0, changed: commitsSet.changed };
         }
