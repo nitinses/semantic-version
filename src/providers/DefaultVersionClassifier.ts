@@ -69,9 +69,11 @@ export class DefaultVersionClassifier implements VersionClassifier {
         
         const event_name = process.env.GITHUB_EVENT_NAME;
         console.log("Event name " + event_name)
+        core.info("Event name " + event_name)
 
         if(event_name === 'schedule' ) {
             console.log("Matched schedule condition")
+            core.info("Event name " + event_name)
             return { type: VersionType.Patch, increment: 1, changed: true };
         }
         
