@@ -1,4 +1,4 @@
-name: "Git Semantic Version"
+name: "Git Semantic Version ext"
 description: "Determines version of a repo based on git history"
 branding:
   icon: "layers"
