@@ -89,6 +89,8 @@ export async function run() {
     core.warning(`The 'short_tags' input option is no longer supported`);
   }
 
+  core.info('Main fn');
+  core.info(process.env.GITHUB_EVENT_NAME);
   const configurationProvider = new ConfigurationProvider(config);
   const result = await runAction(configurationProvider);
   setOutput(result);
