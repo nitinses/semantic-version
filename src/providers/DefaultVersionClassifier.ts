@@ -103,7 +103,7 @@ export class DefaultVersionClassifier implements VersionClassifier {
 
         const { major, minor, patch } = this.getNextVersion(lastRelease, type);
 
-        if (lastRelease.currentPatch !== null) {
+        if (process.env['GITHUB_EVENT_NAME'] !== 'schedule' && lastRelease.currentPatch !== null) {
             // If the current commit is tagged, we must use that version. Here we check if the version we have resolved from the
             // previous commits is the same as the current version. If it is, we will use the increment value, otherwise we reset
             // to zero. For example:
@@ -112,7 +112,7 @@ export class DefaultVersionClassifier implements VersionClassifier {
             // - commit 2 - v1.0.0+1
             // - commit 3 was tagged v2.0.0 - v2.0.0+0
             // - commit 4 - v2.0.1+0
-
+            core.info('Checking if current commit is tagged');
             const versionsMatch = lastRelease.currentMajor === major && lastRelease.currentMinor === minor && lastRelease.currentPatch === patch;
             const currentIncrement = versionsMatch ? increment : 0;
             return new VersionClassification(VersionType.None, currentIncrement, false, <number>lastRelease.currentMajor, <number>lastRelease.currentMinor, <number>lastRelease.currentPatch);
