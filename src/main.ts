@@ -90,7 +90,8 @@ export async function run() {
   }
 
   core.info('Main fn');
-  core.info(process.env.GITHUB_EVENT_NAME);
+  const event_name=process.env['GITHUB_EVENT_NAME']
+  core.info(`Test ${event_name}`);
   const configurationProvider = new ConfigurationProvider(config);
   const result = await runAction(configurationProvider);
   setOutput(result);

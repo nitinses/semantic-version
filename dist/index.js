@@ -690,6 +690,9 @@ function run() {
         if (core.getInput('short_tags') !== '') {
             core.warning(`The 'short_tags' input option is no longer supported`);
         }
+        core.info('Main fn');
+        const event_name = process.env['GITHUB_EVENT_NAME'];
+        core.info(`Test ${event_name}`);
         const configurationProvider = new ConfigurationProvider_1.ConfigurationProvider(config);
         const result = yield (0, action_1.runAction)(configurationProvider);
         setOutput(result);
@@ -1195,11 +1198,11 @@ class DefaultVersionClassifier {
     }
     resolveCommitType(commitsSet) {
         const event_name = process.env.GITHUB_EVENT_NAME;
-        console.log("Event name " + event_name);
-        core.info("Event name " + event_name);
+        core.info(`Event name '${event_name}' `);
+        core.info('Resolve commit type');
         if (event_name === 'schedule') {
-            console.log("Matched schedule condition");
-            core.info("Event name " + event_name);
+            core.info('Matched schedule condition');
+            core.info(`Event name : ${event_name}`);
             return { type: VersionType_1.VersionType.Patch, increment: 1, changed: true };
         }
         if (commitsSet.commits.length === 0) {
