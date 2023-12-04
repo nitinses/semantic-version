@@ -68,8 +68,10 @@ export class DefaultVersionClassifier implements VersionClassifier {
     private resolveCommitType(commitsSet: CommitInfoSet): ({ type: VersionType, increment: number, changed: boolean }) {
         
         const event_name = process.env.GITHUB_EVENT_NAME;
+        console.log("Event name " + event_name)
 
         if(event_name === 'schedule' ) {
+            console.log("Matched schedule condition")
             return { type: VersionType.Patch, increment: 1, changed: true };
         }
         
