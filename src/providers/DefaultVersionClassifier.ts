@@ -5,6 +5,7 @@ import { ReleaseInformation } from "./ReleaseInformation";
 import { VersionClassification } from "./VersionClassification";
 import { VersionClassifier } from "./VersionClassifier";
 import { VersionType } from "./VersionType";
+import * as core from '@actions/core';
 
 export class DefaultVersionClassifier implements VersionClassifier {
 
