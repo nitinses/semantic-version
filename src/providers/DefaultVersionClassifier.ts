@@ -77,6 +77,12 @@ export class DefaultVersionClassifier implements VersionClassifier {
             core.info(`Event name : ${event_name}`);
             return { type: VersionType.Patch, increment: 1, changed: true };
         }
+
+        if(event_name === 'push' ) {
+            core.info('Matched schedule condition');
+            core.info(`Event name : ${event_name}`);
+            return { type: VersionType.Patch, increment: 1, changed: true };
+        }
         
         if (commitsSet.commits.length === 0) {
             return { type: VersionType.None, increment: 0, changed: commitsSet.changed };
