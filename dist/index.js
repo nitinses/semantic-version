@@ -1060,7 +1060,7 @@ class DefaultLastReleaseResolver {
                     // tagsCount = tags.length;
                     // tag = tags
                     //     .find(t => tagFormatter.IsValid(t) && t !== currentTag) || '';
-                    core.info('Trying to use older tag version');
+                    core.info('Ignored condition: Trying to use older tag version');
                 }
                 const command = `git for-each-ref --sort=-v:*refname --format=%(refname:short) --merged=${current} ${refPrefixPattern}${releasePattern}`;
                 const tags = (yield (0, CommandRunner_1.cmd)(command)).split('\n');

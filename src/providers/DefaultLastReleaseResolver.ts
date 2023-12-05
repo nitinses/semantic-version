@@ -40,7 +40,7 @@ export class DefaultLastReleaseResolver implements LastReleaseResolver {
                 // tagsCount = tags.length;
                 // tag = tags
                 //     .find(t => tagFormatter.IsValid(t) && t !== currentTag) || '';
-                core.info('Trying to use older tag version')
+                core.info('Ignored condition: Trying to use older tag version');
 
             } 
             const command = `git for-each-ref --sort=-v:*refname --format=%(refname:short) --merged=${current} ${refPrefixPattern}${releasePattern}`;
