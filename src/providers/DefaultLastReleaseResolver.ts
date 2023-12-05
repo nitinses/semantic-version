@@ -37,20 +37,21 @@ export class DefaultLastReleaseResolver implements LastReleaseResolver {
                 core.info('Condition to be ignored');
                 // If we already have the current branch tagged, we are checking for the previous one
                 // so that we will have an accurate increment (assuming the new tag is the expected one)
-                const command = `git for-each-ref --sort=-v:*refname --format=%(refname:short) --merged=${current} ${refPrefixPattern}${releasePattern}`;
-                const tags = (await cmd(command)).split('\n')
-                tagsCount = tags.length;
-                tag = tags
-                    .find(t => tagFormatter.IsValid(t) && t !== currentTag) || '';
+                // const command = `git for-each-ref --sort=-v:*refname --format=%(refname:short) --merged=${current} ${refPrefixPattern}${releasePattern}`;
+                // const tags = (await cmd(command)).split('\n')
+                // tagsCount = tags.length;
+                // tag = tags
+                //     .find(t => tagFormatter.IsValid(t) && t !== currentTag) || '';
 
-            } else {
+            } 
+            // else {
                 core.info('Reached else block');
                 const command = `git for-each-ref --sort=-v:*refname --format=%(refname:short) --merged=${current} ${refPrefixPattern}${releasePattern}`;
                 const tags = (await cmd(command)).split('\n')
                 tagsCount = tags.length;
                 tag = tags
                     .find(t => tagFormatter.IsValid(t)) || '';
-            }
+            // }
 
             tag = tag.trim();
         }
