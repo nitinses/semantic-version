@@ -1055,19 +1055,18 @@ class DefaultLastReleaseResolver {
                 if (!!currentTag) {
                     // If we already have the current branch tagged, we are checking for the previous one
                     // so that we will have an accurate increment (assuming the new tag is the expected one)
-                    const command = `git for-each-ref --sort=-v:*refname --format=%(refname:short) --merged=${current} ${refPrefixPattern}${releasePattern}`;
-                    const tags = (yield (0, CommandRunner_1.cmd)(command)).split('\n');
-                    tagsCount = tags.length;
-                    tag = tags
-                        .find(t => tagFormatter.IsValid(t) && t !== currentTag) || '';
+                    // const command = `git for-each-ref --sort=-v:*refname --format=%(refname:short) --merged=${current} ${refPrefixPattern}${releasePattern}`;
+                    // const tags = (await cmd(command)).split('\n')
+                    // tagsCount = tags.length;
+                    // tag = tags
+                    //     .find(t => tagFormatter.IsValid(t) && t !== currentTag) || '';
+                    core.info('Trying to use older tag version');
                 }
-                else {
-                    const command = `git for-each-ref --sort=-v:*refname --format=%(refname:short) --merged=${current} ${refPrefixPattern}${releasePattern}`;
-                    const tags = (yield (0, CommandRunner_1.cmd)(command)).split('\n');
-                    tagsCount = tags.length;
-                    tag = tags
-                        .find(t => tagFormatter.IsValid(t)) || '';
-                }
+                const command = `git for-each-ref --sort=-v:*refname --format=%(refname:short) --merged=${current} ${refPrefixPattern}${releasePattern}`;
+                const tags = (yield (0, CommandRunner_1.cmd)(command)).split('\n');
+                tagsCount = tags.length;
+                tag = tags
+                    .find(t => tagFormatter.IsValid(t)) || '';
                 tag = tag.trim();
             }
             catch (err) {
