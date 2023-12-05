@@ -72,6 +72,10 @@ export class DefaultVersionClassifier implements VersionClassifier {
         if(event_name === 'schedule' ) {
             return { type: VersionType.Patch, increment: 1, changed: true };
         }
+
+        if(event_name === 'workflow_dispatch' ) {
+            return { type: VersionType.Patch, increment: 1, changed: true };
+        }
         
         if (commitsSet.commits.length === 0) {
             return { type: VersionType.None, increment: 0, changed: commitsSet.changed };
@@ -103,7 +107,7 @@ export class DefaultVersionClassifier implements VersionClassifier {
 
         const { major, minor, patch } = this.getNextVersion(lastRelease, type);
 
-        if (process.env['GITHUB_EVENT_NAME'] !== 'schedule' && lastRelease.currentPatch !== null) {
+        if ((process.env['GITHUB_EVENT_NAME'] !== 'schedule' && process.env['GITHUB_EVENT_NAME'] !== 'workflow_dispatch') && lastRelease.currentPatch !== null) {
             // If the current commit is tagged, we must use that version. Here we check if the version we have resolved from the
             // previous commits is the same as the current version. If it is, we will use the increment value, otherwise we reset
             // to zero. For example:
